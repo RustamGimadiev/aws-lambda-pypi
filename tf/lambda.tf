@@ -1,6 +1,15 @@
+variable "zip_file_path" {
+  type    = string
+  default = ""
+}
+
+locals {
+   code_zip_file = var.zip_file_path == "" ? var.zip_file_path : "../out/lambda_pypicloud.zip"
+}
+
 resource "aws_lambda_function" "pypicloud" {
-  filename = "../out/lambda_pypicloud.zip"
-  source_code_hash = filebase64sha256("../out/lambda_pypicloud.zip")
+  filename = local.code_zip_file
+  source_code_hash = filebase64sha256(local.code_zip_file)
   function_name = "pypicloud"
   role = aws_iam_role.pypicloud.arn
   handler = "lambda_function.lambda_handler"
