@@ -4,7 +4,7 @@ variable "zip_file_path" {
 }
 
 locals {
-   code_zip_file = var.zip_file_path == "" ? var.zip_file_path : "../out/lambda_pypicloud.zip"
+   code_zip_file = var.zip_file_path == "" ? "../out/lambda_pypicloud.zip" : var.zip_file_path
 }
 
 resource "aws_lambda_function" "pypicloud" {
